@@ -1,0 +1,22 @@
+version: '2'
+services:
+  mongodb:
+    image: "mongo"
+    ports:
+     - "27017:27017"
+  backend:
+    build: ./backend/
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/usr/src/app/backend
+    depends_on:
+      - mongodb
+  client:
+    build: ./client/
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app/client
+    depends_on:
+      - backend
